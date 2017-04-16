@@ -1,6 +1,6 @@
 import random
 
-def newgame():
+def newboard():
     board = []
     #create empty board
 
@@ -35,6 +35,7 @@ def newgame():
         x2_functions = [m1, m3, m4]
     else:
         x2_functions = [m1, m2, m3, m4]
+        
     #possible x2 functions based in x1's location
     
     x2_locations = []
@@ -49,8 +50,33 @@ def newgame():
     board[x1] = "S "
     x2 = random.choice(x2_locations)
     board[x2] = "S "
-    print '\n'.join(''.join(board[i:i+5]) for i in xrange(0,25,5))
-    #prints new game
+    return(board)
 
-newgame()
+round_board = newboard()
+#define round's board
 
+def newgame(r):
+    print '\n'.join(''.join(r[i:i+5]) for i in xrange(0,25,5))
+    #prints board
+
+    positions =  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+    tried_positions = []
+    #possible places to attack
+
+    moves = 1
+
+    while True:
+        available_positions = []
+        for element in positions:
+            if element not in tried_positions:
+                available_positions.append(element)
+        index = random.choice(available_positions)
+        if r[index] == "O ":
+            moves = moves + 1
+            tried_positions.append(index)
+        else:
+            break
+        
+    print(moves)
+    
+newgame(round_board)
